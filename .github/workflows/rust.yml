@@ -1,0 +1,56 @@
+name: Rust
+on:
+  pull_request:
+    branches:
+    - master
+    paths:
+    - "**.rs"
+    - "**Cargo.lock"
+    - "**Cargo.toml"
+  push:
+    branches:
+    - master
+    paths:
+    - "**.rs"
+    - "**Cargo.lock"
+    - "**Cargo.toml"
+
+jobs:
+  clippy:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: Swatinem/rust-cache@v1
+    - run: cargo clippy -- -D warnings
+
+  stable:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: Swatinem/rust-cache@v1
+    - run: cargo test
+
+  nightly:
+    needs: format
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: rustup default nightly-2021-01-06
+    - uses: Swatinem/rust-cache@v1
+    - run: cargo test
+
+  windows:
+    needs: format
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: Swatinem/rust-cache@v1
+    - run: cargo test
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: cargo fmt -- --check
