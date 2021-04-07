@@ -1,3 +1,5 @@
+[![ci-badge][]][ci]
+
 # gungeon-save
 
 A simple Enter the Gungeon save file decoder and encoder.
@@ -17,3 +19,6 @@ gungeon-save encode name-of-decoded-file
 # Simple help message, explaining the same things as here.
 gungeon-save help
 ```
+
+[ci]: https://github.com/Elinvynia/gungeon-save/actions?query=workflow%3ARust
+[ci-badge]: https://img.shields.io/github/workflow/status/Elinvynia/gungeon-save/Rust/master?style=flat-square
